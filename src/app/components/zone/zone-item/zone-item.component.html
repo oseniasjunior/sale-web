@@ -1,0 +1,24 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+  <mat-card>
+    <form [formGroup]="formGroup">
+      <div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+             fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="name" required maxlength="64">
+            <mat-error *ngIf="formGroup.controls.name.invalid">{{ getErrorMessage('name') }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+          <button mat-raised-button color="accent" (click)="goToPage('zone')">Cancelar</button>
+          <button mat-raised-button color="primary" (click)="save()" [disabled]="!formGroup.valid">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

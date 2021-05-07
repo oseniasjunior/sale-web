@@ -20,12 +20,17 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {HttpClientModule} from '@angular/common/http';
 import {MaritalStatusComponent} from './components/marital-status/marital-status.component';
+import {ZoneComponent} from './components/zone/zone.component';
+import {ZoneItemComponent} from './components/zone/zone-item/zone-item.component';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     StateComponent,
-    MaritalStatusComponent
+    MaritalStatusComponent,
+    ZoneComponent,
+    ZoneItemComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,9 @@ import {MaritalStatusComponent} from './components/marital-status/marital-status
     MatFormFieldModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     MainService,

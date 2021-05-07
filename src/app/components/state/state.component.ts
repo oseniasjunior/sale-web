@@ -1,23 +1,26 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import {State} from '../../models/state';
-import {takeUntil} from 'rxjs/operators';
-import {BaseListComponent} from '../base-list-component';
+import {BaseComponent} from '../base-component';
+import {URLS} from '../../urls';
 
 @Component({
   selector: 'app-state',
   templateUrl: './state.component.html',
   styleUrls: ['./state.component.scss']
 })
-export class StateComponent extends BaseListComponent<State> {
+export class StateComponent extends BaseComponent<State> {
 
   displayedColumns = ['id', 'name', 'abbreviation', 'created_at', 'modified_at'];
 
   constructor(public injector: Injector) {
-    super(injector, {path: 'state'});
+    super(injector, {path: URLS.STATE});
   }
 
   getPaginated() {
     this.service.clearParameter();
     super.getPaginated();
+  }
+
+  protected createFormGroup(): void {
   }
 }
