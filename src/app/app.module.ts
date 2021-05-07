@@ -14,15 +14,27 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {StateComponent} from './components/state/state.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {HttpClientModule} from '@angular/common/http';
+import {MaritalStatusComponent} from './components/marital-status/marital-status.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StateComponent,
+    MaritalStatusComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+
     MatToolbarModule,
     MatIconModule,
     MatListModule,
@@ -30,11 +42,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
-    BaseService,
     MainService,
   ],
   bootstrap: [AppComponent]
