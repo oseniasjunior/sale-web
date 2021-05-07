@@ -1,0 +1,192 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.floating-button {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 1;
+}
+
+table {
+  width: 100%;
+}
+
+@mixin custom-theme($config-or-theme) {
+
+  $config: mat-get-color-config($config-or-theme);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $main-color: rgb(236, 240, 245);
+  $strip-color: #f2f4f5;
+
+  html, body, .main {
+    margin: 0;
+    height: 100%;
+  }
+
+  .main-container {
+
+    .mat-drawer {
+      background: mat-color($primary);
+      box-shadow: 3px 0 10px 0 rgba(0, 0, 0, 0.35);
+
+      .mat-drawer-inner-container {
+        -ms-overflow-style: none !important;; // IE 10+
+        scrollbar-width: none !important; // Firefox
+
+        &::-webkit-scrollbar {
+          display: none !important;;
+        }
+      }
+
+      .mat-nav-list {
+
+        .mat-subheader {
+          height: 40px;
+          color: mat-color($primary, 600);
+          font-weight: 500;
+          text-transform: uppercase;
+          opacity: .5;
+          letter-spacing: 1px;
+        }
+
+        .mat-list-item {
+          touch-action: auto !important;
+          height: 40px;
+          color: mat-color($primary, 100);
+
+          &.active, &:hover {
+            background-color: mat-color($accent);
+            color: mat-contrast($primary, 500);
+          }
+
+          .mat-line {
+            font-weight: 500;
+          }
+        }
+      }
+
+    }
+
+    .mat-drawer-content {
+      background-color: $main-color;
+
+      .container {
+        padding: 20px 15px 15px;
+      }
+
+    }
+  }
+
+
+  .mat-table {
+    overflow: visible;
+
+    .mat-row {
+      min-height: 44px;
+      cursor: pointer;
+
+      &.cdk-drag {
+        cursor: move;
+      }
+    }
+
+    .mat-footer-row, .mat-header-row {
+      min-height: 48px;
+    }
+
+    .mat-header-cell {
+      font-weight: 600;
+      color: #333333;
+    }
+
+    .mat-row:hover, .mat-row:nth-child(odd):hover {
+      background-color: mat-color($accent, 100);
+    }
+
+    .mat-header-row, .mat-row:nth-child(odd) {
+      background-color: $strip-color;
+    }
+
+    .mat-cell, .mat-footer-cell, .mat-header-cell {
+      white-space: normal;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 14px;
+    }
+
+    @media screen and (max-width: 960px) {
+      border: 0;
+      vertical-align: middle;
+
+      .mat-header-row {
+        display: none !important;
+      }
+
+      .mat-row {
+        min-height: 22px;
+        border-bottom: 5px solid rgba(0, 0, 0, 0.12);
+        display: block !important;
+      }
+
+      .mat-cell {
+        display: flex;
+        text-align: right;
+        font-weight: bold;
+        max-width: none !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      }
+
+      .mat-cell:before {
+        display: flex;
+        flex: 1 1 0;
+        content: attr(data-header);
+        float: left;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+
+      .mat-cell:last-child {
+        border-bottom: 0;
+      }
+
+      .mat-cell:first-child {
+        padding-top: 4%;
+      }
+    }
+  }
+
+}
+
+$primary: mat-palette($mat-grey, 900);
+$accent: mat-palette($mat-pink, 400);
+$warn: mat-palette($mat-red, A200, A100, A400);
+
+$theme: mat-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn
+  )
+));
+
+@include angular-material-theme($theme);
+@include custom-theme($theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

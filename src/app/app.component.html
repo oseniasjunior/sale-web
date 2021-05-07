@@ -1,0 +1,48 @@
+<div class="main" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxFlex="64px" fxLayout="row">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="drawer.toggle()" color="accent">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Sistema Vendas</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+
+  <div fxFlex="2px" fxLayout="row">
+    <mat-toolbar color="accent">
+    </mat-toolbar>
+  </div>
+
+  <mat-drawer-container fxFlex="calc(100% - 64px)" fxFill class="main-container">
+    <mat-drawer #drawer mode="side" [opened]="true">
+      <mat-nav-list>
+        <h3 mat-subheader>Cadastros básicos</h3>
+        <p><a mat-list-item [routerLink]="['zone']" [routerLinkActive]="['active']">Zonas</a></p>
+        <p><a mat-list-item [routerLink]="['department']" [routerLinkActive]="['active']">Departamentos</a></p>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content cdkScrollable fxLayout="column" fxLayoutAlign="start stretch">
+
+      <mat-toolbar class="container-header mat-elevation-z2" fxFlex="54px">
+        <div fxLayoutAlign="start center">
+          <div><span class="title"> {{ title }} </span></div>
+        </div>
+      </mat-toolbar>
+
+      <div class="container" fxFlex>
+        <router-outlet></router-outlet>
+      </div>
+
+      <mat-toolbar class="mat-elevation-z2" fxFlex="40px">
+        <div fxLayoutAlign="start center" fxLayoutGap="6px">
+          <div>Versão 1.0.0</div>
+        </div>
+      </mat-toolbar>
+
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+
+</div>
