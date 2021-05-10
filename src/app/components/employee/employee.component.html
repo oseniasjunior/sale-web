@@ -44,18 +44,20 @@
       <ng-container matColumnDef="admission_date">
         <mat-header-cell *matHeaderCellDef>Data de admissão</mat-header-cell>
         <mat-cell *matCellDef="let element"
-                  [attr.data-header]="'Data de admissão'">{{element.admission_date}}</mat-cell>
+                  [attr.data-header]="'Data de admissão'">{{element.admission_date | localDate: 'shortDate' }}</mat-cell>
       </ng-container>
 
 
       <ng-container matColumnDef="created_at">
         <mat-header-cell *matHeaderCellDef>Criado em</mat-header-cell>
-        <mat-cell *matCellDef="let element" [attr.data-header]="'Criado em'">{{element.created_at}}</mat-cell>
+        <mat-cell *matCellDef="let element"
+                  [attr.data-header]="'Criado em'">{{element.created_at | localDate}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="modified_at">
         <mat-header-cell *matHeaderCellDef>Modificado em</mat-header-cell>
-        <mat-cell *matCellDef="let element" [attr.data-header]="'Modificado em'">{{element.modified_at}}</mat-cell>
+        <mat-cell *matCellDef="let element"
+                  [attr.data-header]="'Modificado em'">{{element.modified_at | localDate}}</mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

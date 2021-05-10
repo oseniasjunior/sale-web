@@ -1,11 +1,10 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {BaseService} from './services/base-service';
 import {MainService} from './services/main-service';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
@@ -31,7 +30,11 @@ import {DateFormatDirective} from "./directives/date-format.directive";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
 import {EmployeeItemComponent} from "./components/employee/employee-item/employee-item.component";
 import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
+import {LocalDatePipe} from "./pipes/local-date.pipe";
+import {registerLocaleData} from "@angular/common";
+import localePt from '@angular/common/locales/pt';
 
+registerLocaleData(localePt, "pt");
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
     ZoneItemComponent,
     EmployeeComponent,
     EmployeeItemComponent,
-    DateFormatDirective
+    DateFormatDirective,
+    LocalDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +88,10 @@ import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
       provide: MAT_DATE_FORMATS,
       useValue: CUSTOM_DATE_FORMATS
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR'
+    }
   ],
   bootstrap: [AppComponent]
 })

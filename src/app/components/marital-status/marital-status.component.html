@@ -13,12 +13,14 @@
 
       <ng-container matColumnDef="created_at">
         <mat-header-cell *matHeaderCellDef>Criado em</mat-header-cell>
-        <mat-cell *matCellDef="let element" [attr.data-header]="'Criado em'">{{element.created_at}}</mat-cell>
+        <mat-cell *matCellDef="let element"
+                  [attr.data-header]="'Criado em'">{{element.created_at | localDate}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="modified_at">
         <mat-header-cell *matHeaderCellDef>Modificado em</mat-header-cell>
-        <mat-cell *matCellDef="let element" [attr.data-header]="'Modificado em'">{{element.modified_at}}</mat-cell>
+        <mat-cell *matCellDef="let element"
+                  [attr.data-header]="'Modificado em'">{{element.modified_at | localDate}}</mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
