@@ -43,12 +43,12 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     });
   }
 
-  // public createService<K>(model: new () => K, path: string): BaseService<K> {
-  //   const TOKEN = new InjectionToken<BaseService<K>>('service_' + path, {
-  //     providedIn: 'root', factory: () => new BaseService<K>(this.http, path),
-  //   });
-  //   return this.injector.get(TOKEN);
-  // }
+  public createService<K>(model: new () => K, path: string): BaseService<K> {
+    const TOKEN = new InjectionToken<BaseService<K>>('service_' + path, {
+      providedIn: 'root', factory: () => new BaseService<K>(this.http, path),
+    });
+    return this.injector.get(TOKEN);
+  }
 
   ngOnInit(): void {
     this.createFormGroup();
@@ -77,8 +77,8 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     Object.assign(this.object, this.formGroup.getRawValue());
     this.service.save(this.object).pipe(
       takeUntil(this.unsubscribe),
-    ).subscribe(() => {
-      this.goToPage('zone');
+    ).subscribe((response) => {
+      this.object = response;
     });
   }
 

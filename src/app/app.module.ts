@@ -23,6 +23,15 @@ import {MaritalStatusComponent} from './components/marital-status/marital-status
 import {ZoneComponent} from './components/zone/zone.component';
 import {ZoneItemComponent} from './components/zone/zone-item/zone-item.component';
 import {MatInputModule} from '@angular/material/input';
+import {EmployeeComponent} from "./components/employee/employee.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {DateFormatDirective} from "./directives/date-format.directive";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
+import {EmployeeItemComponent} from "./components/employee/employee-item/employee-item.component";
+import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
+
 
 @NgModule({
   declarations: [
@@ -30,7 +39,10 @@ import {MatInputModule} from '@angular/material/input';
     StateComponent,
     MaritalStatusComponent,
     ZoneComponent,
-    ZoneItemComponent
+    ZoneItemComponent,
+    EmployeeComponent,
+    EmployeeItemComponent,
+    DateFormatDirective
   ],
   imports: [
     BrowserModule,
@@ -52,9 +64,26 @@ import {MatInputModule} from '@angular/material/input';
     MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [
     MainService,
+    MatDatepickerModule,
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'pt-BR'
+    },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: CUSTOM_DATE_FORMATS
+    },
   ],
   bootstrap: [AppComponent]
 })

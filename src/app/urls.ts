@@ -1,5 +1,8 @@
 export const URLS = {
   ZONE: 'zone',
   MARITAL_STATUS: 'marital_status',
-  STATE: 'state'
+  STATE: 'state',
+  EMPLOYEE: 'employee',
+  DEPARTMENT: 'department',
+  DISTRICT: 'district',
 };

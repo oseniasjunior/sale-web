@@ -1,0 +1,90 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+  <mat-card>
+    <form [formGroup]="formGroup">
+      <div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+             fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="name" required maxlength="64">
+            <mat-error *ngIf="formGroup.controls.name.invalid">{{ getErrorMessage('name') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Salário</mat-label>
+            <input matInput type="number" formControlName="salary" required>
+            <mat-error *ngIf="formGroup.controls.salary.invalid">{{ getErrorMessage('salary') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Data de admissão</mat-label>
+            <input matInput [matDatepicker]="admission_date" dateFormat="YYYY-MM-DD" formControlName="admission_date">
+            <mat-datepicker-toggle matSuffix [for]="admission_date"></mat-datepicker-toggle>
+            <mat-datepicker #admission_date [touchUi]="false"></mat-datepicker>
+            <mat-error
+              *ngIf="formGroup.controls.admission_date.invalid">{{ getErrorMessage('admission_date') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Data de aniversário</mat-label>
+            <input matInput [matDatepicker]="birth_date" dateFormat="YYYY-MM-DD" formControlName="birth_date">
+            <mat-datepicker-toggle matSuffix [for]="birth_date"></mat-datepicker-toggle>
+            <mat-datepicker #birth_date [touchUi]="false"></mat-datepicker>
+            <mat-error *ngIf="formGroup.controls.birth_date.invalid">{{ getErrorMessage('birth_date') }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+             fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Sexo</mat-label>
+            <mat-select formControlName="gender" required>
+              <mat-option></mat-option>
+              <mat-option [value]="'M'">Masculino</mat-option>
+              <mat-option [value]="'F'">Feminino</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.controls.gender.invalid">{{ getErrorMessage('gender') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Departamento</mat-label>
+            <mat-select formControlName="department" required>
+              <mat-option></mat-option>
+              <mat-option [value]="d.url" *ngFor="let d of departmentList">{{d.name}} </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.controls.department.invalid">{{ getErrorMessage('department') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <mat-select formControlName="district" required>
+              <mat-option></mat-option>
+              <mat-option [value]="d.url" *ngFor="let d of districtList">{{d.name}} </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.controls.district.invalid">{{ getErrorMessage('district') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Estado Civil</mat-label>
+            <mat-select formControlName="marital_status" required>
+              <mat-option></mat-option>
+              <mat-option [value]="d.url" *ngFor="let d of maritalStatusList">{{d.name}} </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="formGroup.controls.marital_status.invalid">{{ getErrorMessage('marital_status') }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+          <button mat-raised-button color="accent" (click)="goToPage('employee')">Cancelar</button>
+          <button mat-raised-button color="primary" (click)="save()" [disabled]="!formGroup.valid">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>
