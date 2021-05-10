@@ -8,6 +8,8 @@ import {HttpClient} from '@angular/common/http';
 import {NavigationExtras, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../services/main-service';
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 
 
 interface Options {
@@ -28,12 +30,14 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
   mainService: MainService;
   formGroup: FormGroup;
   object: T;
+  dialog: MatDialog;
 
   protected constructor(public injector: Injector, public options: Options) {
     this.http = this.injector.get(HttpClient);
     this.router = this.injector.get(Router);
     this.fb = this.injector.get(FormBuilder);
     this.mainService = this.injector.get(MainService);
+    this.dialog = this.injector.get(MatDialog);
     this.service = this.injector.get(this._serviceToken());
   }
 
@@ -88,6 +92,26 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     this.service.getPaginatedResult().pipe(
       takeUntil(this.unsubscribe)
     ).subscribe(response => this.paginated = response);
+  }
+
+  delete(pk: number, description: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: {pk: pk, description: description}
+    });
+    dialogRef.afterClosed().pipe(
+      takeUntil(this.unsubscribe)
+    ).subscribe(response => {
+      if (response) {
+        this.service.delete(pk).pipe(
+          takeUntil(this.unsubscribe)
+        ).subscribe(() => {
+          this.getPaginated();
+        }, (exception) => {
+          console.log('Erro ao deletar. Verifique se o registro não está sendo usado em outros cadastros');
+        });
+      }
+    });
   }
 
   public goToPage(path: string): void {

@@ -2,6 +2,9 @@ import {Component, Injector} from '@angular/core';
 import {BaseComponent} from '../base-component';
 import {Zone} from '../../models/zone';
 import {URLS} from '../../urls';
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {take, takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-zone',
@@ -10,7 +13,7 @@ import {URLS} from '../../urls';
 })
 export class ZoneComponent extends BaseComponent<Zone> {
 
-  displayedColumns = ['id', 'name', 'created_at', 'modified_at'];
+  displayedColumns = ['id', 'name', 'created_at', 'modified_at', 'action'];
 
   constructor(public injector: Injector) {
     super(injector, {path: URLS.ZONE});
@@ -30,5 +33,6 @@ export class ZoneComponent extends BaseComponent<Zone> {
     }
     super.getPaginated();
   }
+
 
 }

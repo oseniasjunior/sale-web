@@ -33,6 +33,8 @@ import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
 import {LocalDatePipe} from "./pipes/local-date.pipe";
 import {registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
+import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 
 registerLocaleData(localePt, "pt");
 
@@ -47,6 +49,8 @@ registerLocaleData(localePt, "pt");
     EmployeeItemComponent,
     DateFormatDirective,
     LocalDatePipe,
+    ConfirmDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ registerLocaleData(localePt, "pt");
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatDialogModule,
   ],
+
   providers: [
     MainService,
     MatDatepickerModule,
@@ -91,6 +97,10 @@ registerLocaleData(localePt, "pt");
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: false}
     }
   ],
   bootstrap: [AppComponent]

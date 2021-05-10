@@ -47,5 +47,13 @@ export class BaseService<T> {
     );
   }
 
+  public delete(pk: number | string): Observable<void> {
+    this.clearParameter();
+    return this.http.delete(`${this.urlBase}/${this.path}/${pk}/`).pipe(
+      tap(response => response as HttpUserEvent<void>),
+      catchError(ex => from([]))
+    );
+  }
+
 
 }

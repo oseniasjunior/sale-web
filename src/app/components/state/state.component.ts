@@ -10,7 +10,7 @@ import {URLS} from '../../urls';
 })
 export class StateComponent extends BaseComponent<State> {
 
-  displayedColumns = ['id', 'name', 'abbreviation', 'created_at', 'modified_at'];
+  displayedColumns = ['id', 'name', 'abbreviation', 'created_at', 'modified_at', 'action'];
 
   constructor(public injector: Injector) {
     super(injector, {path: URLS.STATE});

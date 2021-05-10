@@ -1,0 +1,20 @@
+<mat-toolbar>
+  <span fxFlex>Confirmação</span>
+  <button mat-icon-button [mat-dialog-close]="false">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <span>Deseja excluir o registro?</span>
+  <strong>{{data?.description}}</strong>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-button mat-stroked-button color="accent" [mat-dialog-close]="false" tabindex="1">
+    Não
+  </button>
+  <button mat-button mat-raised-button color="primary" [mat-dialog-close]="true" tabindex="2">
+    Sim
+  </button>
+</mat-dialog-actions>

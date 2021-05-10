@@ -48,6 +48,16 @@
                   [attr.data-header]="'Modificado em'">{{element.modified_at | localDate}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+        <mat-cell *matCellDef="let element"
+                  [attr.data-header]="'Ações'">
+          <button mat-icon-button (click)="delete(element.id, element.name)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
