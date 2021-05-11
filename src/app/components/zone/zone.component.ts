@@ -5,6 +5,7 @@ import {URLS} from '../../urls';
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {take, takeUntil} from "rxjs/operators";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-zone',

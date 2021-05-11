@@ -2,6 +2,7 @@ import {HttpClient, HttpParams, HttpUserEvent} from '@angular/common/http';
 import {from, Observable} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {PaginatedResult} from '../paginated-result';
+import {ModelBase} from "../models/model-base";
 
 export class BaseService<T> {
   urlBase = 'http://127.0.0.1:8000/api/sale/core';
@@ -33,6 +34,14 @@ export class BaseService<T> {
     );
   }
 
+  public getById(pk: number): Observable<T> {
+    return this.http.get<T>(`${this.urlBase}/${this.path}/${pk}/`, this.getOptions()).pipe(
+      tap(response => response as HttpUserEvent<T>),
+      catchError(ex => from([]))
+    );
+  }
+
+
   public getPaginatedResult(): Observable<PaginatedResult<T>> {
     return this.http.get<PaginatedResult<T>>(`${this.urlBase}/${this.path}/`, this.getOptions()).pipe(
       tap(response => response as HttpUserEvent<PaginatedResult<T>>),
@@ -42,6 +51,13 @@ export class BaseService<T> {
 
   public save(aObject: T): Observable<T> {
     return this.http.post(`${this.urlBase}/${this.path}/`, aObject).pipe(
+      tap(response => response as HttpUserEvent<T>),
+      catchError(ex => from([]))
+    );
+  }
+
+  public update(aObject: T | {}, pk: number): Observable<T> {
+    return this.http.patch(`${this.urlBase}/${this.path}/${pk}/`, aObject).pipe(
       tap(response => response as HttpUserEvent<T>),
       catchError(ex => from([]))
     );

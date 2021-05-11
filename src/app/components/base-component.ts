@@ -5,7 +5,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {BaseService} from '../services/base-service';
 import {HttpClient} from '@angular/common/http';
-import {NavigationExtras, Router} from '@angular/router';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../services/main-service';
 import {MatDialog} from "@angular/material/dialog";
@@ -14,7 +14,15 @@ import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component"
 
 interface Options {
   path: string;
+  nextRouterSave?: string;
+  nextRouterUpdate?: string;
 }
+
+
+interface Params {
+  action: string;
+}
+
 
 @Directive()
 export abstract class BaseComponent<T> implements OnInit, OnDestroy {
@@ -31,6 +39,8 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
   formGroup: FormGroup;
   object: T;
   dialog: MatDialog;
+  activatedRouter: ActivatedRoute;
+  pk?: number;
 
   protected constructor(public injector: Injector, public options: Options) {
     this.http = this.injector.get(HttpClient);
@@ -38,6 +48,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     this.fb = this.injector.get(FormBuilder);
     this.mainService = this.injector.get(MainService);
     this.dialog = this.injector.get(MatDialog);
+    this.activatedRouter = this.injector.get(ActivatedRoute);
     this.service = this.injector.get(this._serviceToken());
   }
 
@@ -56,6 +67,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createFormGroup();
+    this.retrieveOnInit();
     if (this.paginator) {
       this.configurePaginator();
       this.getPaginated();
@@ -79,10 +91,39 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
 
   public save(): void {
     Object.assign(this.object, this.formGroup.getRawValue());
-    this.service.save(this.object).pipe(
-      takeUntil(this.unsubscribe),
-    ).subscribe((response) => {
-      this.object = response;
+    if (!this.pk) {
+      this.service.save(this.object).pipe(
+        takeUntil(this.unsubscribe),
+      ).subscribe((response) => {
+        this.object = response;
+        this.pk = this.object['id'];
+        if (this.options.nextRouterSave) {
+          this.goToPage(this.options.nextRouterSave);
+        }
+      });
+    } else {
+      this.service.update(this.object, this.pk).pipe(
+        takeUntil(this.unsubscribe)
+      ).subscribe(response => {
+        this.object = response;
+        if (this.options.nextRouterUpdate) {
+          this.goToPage(this.options.nextRouterUpdate);
+        }
+      });
+    }
+  }
+
+  retrieveOnInit(): void {
+    this.activatedRouter.params.subscribe((params: Params) => {
+      if (params.action) {
+        if (params.action !== 'create') {
+          this.pk = Number(params.action);
+          this.service.getById(this.pk).subscribe(response => {
+            this.object = response;
+            this.formGroup.reset(this.object);
+          });
+        }
+      }
     });
   }
 

@@ -52,8 +52,11 @@
         <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
         <mat-cell *matCellDef="let element"
                   [attr.data-header]="'Ações'">
-          <button mat-icon-button (click)="delete(element.id, element.name)">
+          <button matTooltip="Deletar o registro" mat-icon-button (click)="delete(element.id, element.name)">
             <mat-icon>delete</mat-icon>
+          </button>
+          <button matTooltip="Editar o registro" mat-icon-button (click)="goToPage('zone/'+element.id)">
+            <mat-icon>edit</mat-icon>
           </button>
         </mat-cell>
       </ng-container>

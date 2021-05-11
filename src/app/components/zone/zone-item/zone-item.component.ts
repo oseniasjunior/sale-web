@@ -14,7 +14,7 @@ export class ZoneItemComponent extends BaseComponent<Zone> {
   object: Zone = new Zone();
 
   constructor(public injector: Injector) {
-    super(injector, {path: URLS.ZONE});
+    super(injector, {path: URLS.ZONE, nextRouterUpdate: 'zone'});
     this.mainService.changeTitle.next('Zona');
   }
 
@@ -23,5 +23,6 @@ export class ZoneItemComponent extends BaseComponent<Zone> {
       name: [null, [Validators.required, Validators.maxLength(64)]]
     });
   }
+
 
 }

@@ -35,6 +35,7 @@ import {registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 registerLocaleData(localePt, "pt");
 
@@ -76,6 +77,7 @@ registerLocaleData(localePt, "pt");
     MatNativeDateModule,
     MatSelectModule,
     MatDialogModule,
+    MatTooltipModule
   ],
 
   providers: [
