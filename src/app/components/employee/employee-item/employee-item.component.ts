@@ -72,8 +72,8 @@ export class EmployeeItemComponent extends BaseComponent<Employee> {
     ).subscribe(response => this.maritalStatusList = response);
   }
 
-  save() {
-    super.save();
+  saveOrUpdate() {
+    super.saveOrUpdate();
     this.goToPage('employee');
   }
 

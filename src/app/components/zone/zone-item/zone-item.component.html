@@ -16,7 +16,7 @@
 
         <div fxFlex fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
           <button mat-raised-button color="accent" (click)="goToPage('zone')">Cancelar</button>
-          <button mat-raised-button color="primary" (click)="save()" [disabled]="!formGroup.valid">Salvar</button>
+          <button mat-raised-button color="primary" (click)="saveOrUpdate()" [disabled]="!formGroup.valid">Salvar</button>
         </div>
       </div>
     </form>

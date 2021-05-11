@@ -89,7 +89,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     ).subscribe(() => this.getPaginated());
   }
 
-  public save(): void {
+  public saveOrUpdate(): void {
     Object.assign(this.object, this.formGroup.getRawValue());
     if (!this.pk) {
       this.service.save(this.object).pipe(
