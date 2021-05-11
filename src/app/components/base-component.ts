@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainService} from '../services/main-service';
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import {ToastrService} from "ngx-toastr";
 
 
 interface Options {
@@ -41,6 +42,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
   dialog: MatDialog;
   activatedRouter: ActivatedRoute;
   pk?: number;
+  toastr: ToastrService;
 
   protected constructor(public injector: Injector, public options: Options) {
     this.http = this.injector.get(HttpClient);
@@ -49,6 +51,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
     this.mainService = this.injector.get(MainService);
     this.dialog = this.injector.get(MatDialog);
     this.activatedRouter = this.injector.get(ActivatedRoute);
+    this.toastr = this.injector.get(ToastrService);
     this.service = this.injector.get(this._serviceToken());
   }
 
@@ -97,6 +100,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
       ).subscribe((response) => {
         this.object = response;
         this.pk = this.object['id'];
+        this.toastr.success('Salvo com sucesso', 'Sucesso');
         if (this.options.nextRouterSave) {
           this.goToPage(this.options.nextRouterSave);
         }
@@ -106,6 +110,7 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe)
       ).subscribe(response => {
         this.object = response;
+        this.toastr.success('Alterado com sucesso', 'Sucesso');
         if (this.options.nextRouterUpdate) {
           this.goToPage(this.options.nextRouterUpdate);
         }
@@ -147,9 +152,10 @@ export abstract class BaseComponent<T> implements OnInit, OnDestroy {
         this.service.delete(pk).pipe(
           takeUntil(this.unsubscribe)
         ).subscribe(() => {
+          this.toastr.success('Registro excluído com sucesso');
           this.getPaginated();
         }, (exception) => {
-          console.log('Erro ao deletar. Verifique se o registro não está sendo usado em outros cadastros');
+          this.toastr.error('Erro ao excluir o registro. Verifique se o mesmo não está sendo usado em outros cadastros');
         });
       }
     });

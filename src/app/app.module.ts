@@ -31,11 +31,12 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/mater
 import {EmployeeItemComponent} from "./components/employee/employee-item/employee-item.component";
 import {CUSTOM_DATE_FORMATS} from "./utils/app.constants";
 import {LocalDatePipe} from "./pipes/local-date.pipe";
-import {registerLocaleData} from "@angular/common";
+import {CommonModule, registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {ToastrModule} from "ngx-toastr";
 
 registerLocaleData(localePt, "pt");
 
@@ -54,6 +55,7 @@ registerLocaleData(localePt, "pt");
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -77,7 +79,13 @@ registerLocaleData(localePt, "pt");
     MatNativeDateModule,
     MatSelectModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      // preventDuplicates: true,
+    })
   ],
 
   providers: [
